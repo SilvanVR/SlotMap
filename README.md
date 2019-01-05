@@ -1,4 +1,4 @@
-# SlotPool
+# SlotMap
 Highly efficient data structure usable for games or game engines.
 Support for C++11 Move Semantics and Perfect Forwarding.
 More detailed description in the corresponding header file.
