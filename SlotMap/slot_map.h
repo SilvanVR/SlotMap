@@ -215,7 +215,7 @@ public:
         IndexType dataIndex = _GetIndex(m_IndicesAndGeneration[index]);
         return std::addressof(m_Data[dataIndex]);
     }
-    const Value* at(Key key) const { return at(key); }
+    const Value* at(Key key) const { return const_cast<TSlotMap*>(this)->at(key); }
 
     Value*       operator[] (Key key)       { return at(key); }
     const Value* operator[] (Key key) const { return at(key); }
