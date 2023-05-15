@@ -434,7 +434,7 @@ private:
 
     //////////////////////////////////////////////////////////////////////////////
     template <typename T>
-    inline typename std::enable_if<std::is_trivially_destructible<T>::value>::type _DeconstructObject(T* src, IndexType index)
+    inline typename std::enable_if<std::is_trivially_destructible<T>::value>::type _DeconstructObject(T* /*src*/, IndexType /*index*/)
     {
         // Do nothing
     }
