@@ -368,7 +368,7 @@ private:
     void _Destroy()
     {
         for (unsigned int i = 0; i < size(); i++)
-            _DeconstructObject(m_Data, i),
+            _DeconstructObject(m_Data, i);
 
         free(m_Data);
         delete[] m_IndicesAndGeneration;
