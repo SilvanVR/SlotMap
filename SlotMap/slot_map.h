@@ -44,11 +44,11 @@
 // @INVALID_KEY_: It is guaranteed that this key will never be generated and can safely be used to represent something like INVALID. Currently it's value the same as: std::numeric_limit<Key>::max()
 // @SizeType: Type for the erase-table. The slot-map can not contain more entries than the number of elements this number can represent.
 // NOTE: INDEX_BIT_COUNT_ + GENERATION_BIT_COUNT_ MUST be equal to the amount of bits in Key. (Ensured by static assert)
-template<typename Value, typename Key = uint64_t, unsigned int INDEX_BIT_COUNT_ = 32, unsigned int GENERATION_BIT_COUNT_ = 32, Key INVALID_KEY_ = ~Key{0}, typename SizeType = unsigned int>
+template <typename Value, typename Key = uint64_t, unsigned int INDEX_BIT_COUNT_ = 32, unsigned int GENERATION_BIT_COUNT_ = 32, Key INVALID_KEY_ = ~Key{0}, typename SizeType = unsigned int>
 class TSlotMap
 {
     // Compile time pow function
-    template<typename T>
+    template <typename T>
     static inline constexpr T POW(const T base, const unsigned int exponent)
     {
         return exponent == 0 ? 1 : (base * POW(base, exponent - 1));
@@ -107,7 +107,7 @@ public:
         return emplace_back(std::move(_Val));
     }
 
-    template<class... Values>
+    template <class... Values>
     Key emplace_back(Values&&... vals)
     {
         // Map is full, allocate more memory
@@ -423,13 +423,13 @@ private:
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    template<typename T>
+    template <typename T>
     inline typename std::enable_if<std::is_move_constructible<T>::value>::type _MoveConstructObject(T* dst, IndexType indexToStore, T* src, IndexType indexToMove)
     {
         new (std::addressof(dst[indexToStore])) T(std::move(src[indexToMove]));
     }
 
-    template<typename T>
+    template <typename T>
     inline typename std::enable_if<!std::is_move_constructible<T>::value>::type _MoveConstructObject(T* dst, IndexType indexToStore, T* src, IndexType indexToMove)
     {
         new (std::addressof(dst[indexToStore])) T(src[indexToMove]);
