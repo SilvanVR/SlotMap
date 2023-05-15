@@ -38,12 +38,12 @@
 // Slot-Map data-structure with O(1) insert, erase and fast iteration/lookup
 // @Value: Type of data contained in this slot map.
 // @Key: Type is used as a key and contains the Index for the data array and a generation counter (to solve ABA problem)
-// @INDEX_BIT_COUNT: Number of bits for the index into the index map. This specifies an upper limit for the entry count.
-// @GENERATION_BIT_COUNT: Number of bits for the generation. If this value is too low, ABA problem is more likely to happen.
-// @INVALID_KEY: It is guaranteed that this key will never be generated and can safely be used to represent something like INVALID. Currently it's value the same as: std::numeric_limit<Key>::max()
+// @INDEX_BIT_COUNT_: Number of bits for the index into the index map. This specifies an upper limit for the entry count.
+// @GENERATION_BIT_COUNT_: Number of bits for the generation. If this value is too low, ABA problem is more likely to happen.
+// @INVALID_KEY_: It is guaranteed that this key will never be generated and can safely be used to represent something like INVALID. Currently it's value the same as: std::numeric_limit<Key>::max()
 // @SizeType: Type for the erase-table. The slot-map can not contain more entries than the number of elements this number can represent.
-// NOTE: INDEX_BIT_COUNT + GENERATION_BIT_COUNT MUST be equal to the amount of bits in Key. (Ensured by static assert)
-template<typename Value, typename Key = uint64_t, unsigned int INDEX_BIT_COUNT = 32, unsigned int GENERATION_BIT_COUNT = 32, Key INVALID_KEY = ~Key{0}, typename SizeType = unsigned int>
+// NOTE: INDEX_BIT_COUNT_ + GENERATION_BIT_COUNT_ MUST be equal to the amount of bits in Key. (Ensured by static assert)
+template<typename Value, typename Key = uint64_t, unsigned int INDEX_BIT_COUNT_ = 32, unsigned int GENERATION_BIT_COUNT_ = 32, Key INVALID_KEY_ = ~Key{0}, typename SizeType = unsigned int>
 class TSlotMap
 {
     // Compile time pow function
@@ -58,15 +58,15 @@ public:
     using GenType      = SizeType;
     using IndexType    = SizeType;
 
-    static const Key INVALID_KEY = INVALID_KEY;
+    static constexpr Key INVALID_KEY = INVALID_KEY_;
 
     // Generation | Index (Into index array or data array. Into data array if slot is unused to point to next free slot)
-    static const unsigned int GENERATION_BIT_COUNT = GENERATION_BIT_COUNT;
-    static const unsigned int INDEX_BIT_COUNT      = INDEX_BIT_COUNT;
+    static constexpr unsigned int GENERATION_BIT_COUNT = GENERATION_BIT_COUNT_;
+    static constexpr unsigned int INDEX_BIT_COUNT      = INDEX_BIT_COUNT_;
 
     // Masks to retrieve the generation or index from a key
-    static const IndexGenType GENERATION_BIT_MASK = POW<IndexGenType>(2, GENERATION_BIT_COUNT) - 1;
-    static const IndexGenType INDEX_BIT_MASK      = POW<IndexGenType>(2, INDEX_BIT_COUNT) - 1;
+    static constexpr IndexGenType GENERATION_BIT_MASK = POW<IndexGenType>(2, GENERATION_BIT_COUNT) - 1;
+    static constexpr IndexGenType INDEX_BIT_MASK      = POW<IndexGenType>(2, INDEX_BIT_COUNT) - 1;
 
     static_assert(INDEX_BIT_COUNT <= sizeof(IndexType) * 8,
         "Index bit-count is too high, because SizeType can not represent it. Consider another type for SizeType or decrease the index bit-count.");
