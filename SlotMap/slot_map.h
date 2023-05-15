@@ -49,9 +49,9 @@ class TSlotMap
 {
     // Compile time pow function
     template <typename T>
-    static inline constexpr T POW(const T base, const unsigned int exponent)
+    static constexpr T POW(const T base, const unsigned int exponent)
     {
-        return exponent == 0 ? 1 : (base * POW(base, exponent - 1));
+        return (exponent == 0) ? 1 : (base * POW(base, exponent - 1));
     }
 
 public:
