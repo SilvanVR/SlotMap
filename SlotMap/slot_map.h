@@ -38,10 +38,10 @@
 // @Key: Type is used as a key and contains the Index for the data array and a generation counter (to solve ABA problem)
 // @INDEX_BIT_COUNT: Number of bits for the index into the index map. This specifies an upper limit for the entry count.
 // @GENERATION_BIT_COUNT: Number of bits for the generation. If this value is too low, ABA problem is more likely to happen.
-// @INVALID_KEY: It is guaranteed that this key will never be generated and can safely be used to represent something like INVALID.
+// @INVALID_KEY: It is guaranteed that this key will never be generated and can safely be used to represent something like INVALID. Currently it's value the same as: std::numeric_limit<Key>::max()
 // @SizeType: Type for the erase-table. The slot-map can not contain more entries than the number of elements this number can represent.
 // NOTE: INDEX_BIT_COUNT + GENERATION_BIT_COUNT MUST be equal to the amount of bits in Key. (Ensured by static assert)
-template<typename Value, typename Key = uint64_t, unsigned int INDEX_BIT_COUNT = 32, unsigned int GENERATION_BIT_COUNT = 32, Key INVALID_KEY = ~0, typename SizeType = unsigned int>
+template<typename Value, typename Key = uint64_t, unsigned int INDEX_BIT_COUNT = 32, unsigned int GENERATION_BIT_COUNT = 32, Key INVALID_KEY = ~Key{0}, typename SizeType = unsigned int>
 class TSlotMap
 {
     // Compile time pow function
