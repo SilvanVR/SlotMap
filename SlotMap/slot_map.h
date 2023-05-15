@@ -36,14 +36,16 @@
 #include <memory>  // for: std::addressof() 
 #include <cassert> // for: assert()
 
-// Slot-Map data-structure with O(1) insert, erase and fast iteration/lookup
-// @Value: Type of data contained in this slot map.
-// @Key: Type is used as a key and contains the Index for the data array and a generation counter (to solve ABA problem)
-// @INDEX_BIT_COUNT_: Number of bits for the index into the index map. This specifies an upper limit for the entry count.
-// @GENERATION_BIT_COUNT_: Number of bits for the generation. If this value is too low, ABA problem is more likely to happen.
-// @INVALID_KEY_: It is guaranteed that this key will never be generated and can safely be used to represent something like INVALID. Currently it's value the same as: std::numeric_limit<Key>::max()
-// @SizeType: Type for the erase-table. The slot-map can not contain more entries than the number of elements this number can represent.
-// NOTE: INDEX_BIT_COUNT_ + GENERATION_BIT_COUNT_ MUST be equal to the amount of bits in Key. (Ensured by static assert)
+/// @brief Slot-Map data-structure with O(1) insert, erase and fast iteration/lookup
+///
+/// @tparam Value Type of data contained in this slot map.
+/// @tparam Key Type is used as a key and contains the Index for the data array and a generation counter (to solve ABA problem)
+/// @tparam INDEX_BIT_COUNT_ Number of bits for the index into the index map. This specifies an upper limit for the entry count.
+/// @tparam GENERATION_BIT_COUNT_ Number of bits for the generation. If this value is too low, ABA problem is more likely to happen.
+/// @tparam INVALID_KEY_ It is guaranteed that this key will never be generated and can safely be used to represent something like INVALID. Currently it's value the same as: `std::numeric_limit<Key>::max()`
+/// @tparam SizeType Type for the erase-table. The slot-map can not contain more entries than the number of elements this number can represent.
+///
+/// @note INDEX_BIT_COUNT_ + GENERATION_BIT_COUNT_ MUST be equal to the amount of bits in Key. (Ensured by static assert)
 template <typename Value, typename Key = uint64_t, unsigned int INDEX_BIT_COUNT_ = 32, unsigned int GENERATION_BIT_COUNT_ = 32, Key INVALID_KEY_ = ~Key{0}, typename SizeType = unsigned int>
 class TSlotMap
 {
