@@ -31,7 +31,7 @@
 
 #include <type_traits>
 #include <cstring>
-#include <assert.h>
+#include <cassert>
 
 // Slot-Map data-structure with O(1) insert, erase and fast iteration/lookup
 // @Value: Type of data contained in this slot map.
