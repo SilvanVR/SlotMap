@@ -4,6 +4,7 @@
 
     author: S. Hau
     date: December 31, 2018
+    repository: https://github.com/SilvanVR/SlotMap
 
     Similar to a std::map but about ~10-100x faster.
     [+] Data stored contigously in memory.
