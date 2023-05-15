@@ -30,8 +30,10 @@
 **********************************************************************/
 
 #include <type_traits>
-#include <cstring>
-#include <cassert>
+#include <cstring> // for: memset(), memcpy()
+#include <cstdint> // for: uint64_t
+#include <memory>  // for: std::addressof() 
+#include <cassert> // for: assert()
 
 // Slot-Map data-structure with O(1) insert, erase and fast iteration/lookup
 // @Value: Type of data contained in this slot map.
