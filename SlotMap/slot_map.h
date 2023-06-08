@@ -288,7 +288,7 @@ private:
     void _SetGeneration(IndexGenType& val, GenType gen)
     {
         val &= ~(GENERATION_BIT_MASK << INDEX_BIT_COUNT); // erases all generation bits
-        val |= gen << INDEX_BIT_COUNT;
+        val |= static_cast<IndexGenType>(gen) << INDEX_BIT_COUNT;
     }
 
     void _SetIndex(IndexGenType& val, IndexType index)
